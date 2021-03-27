@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
 
+import { Route, Link, NavLink, Switch, Redirect} from 'react-router-dom';
+import TodoFeature from './features/todo';
+import AlbumFeature from './features/Album';
+import NotFound from './components/NotFound';
+import {useEffect} from 'react'
+import productApi from './api/productApi'
 function App() {
+    useEffect(()=>{
+        const fetchProducts = async ()=>{
+            const params = {
+                _limit: 10
+            }
+            const productsList = await productApi.getAll(params);
+            console.log(productsList)
+        }
+        fetchProducts()
+    }, [])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        Header
+        <p><NavLink to="/todos" activeClassName="acctive-menu">Todo</NavLink></p>
+        <p><NavLink to="/album">album</NavLink></p>
+        <Switch>
+            <Redirect from="/home" to="/" exact/>
+            <Route path="/todos" component={TodoFeature}/>
+            <Route path="/album" component={AlbumFeature}/>
+            <Route component={NotFound}/>
+        </Switch>
+        Footer
     </div>
   );
 }
