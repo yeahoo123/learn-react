@@ -76,10 +76,14 @@ function ListPage(props) {
         return todoList.filter((todo) => filterStatus === 'all' || filterStatus === todo.status);
     }, [todoList, filterStatus]);
 
+    const handleTodoFormSubmit = (value) => {
+        console.log(value)
+    }
+
     return (
         <div>
             <h3>What to do</h3>
-            <TodoForm/>
+            <TodoForm onSubmit={handleTodoFormSubmit}/>
             <h3>Todo List</h3>
             <TodoList todoList={renderTodoList} onTodoClick={handleTodoClick} />
             <div>
