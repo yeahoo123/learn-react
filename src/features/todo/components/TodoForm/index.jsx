@@ -5,9 +5,11 @@ import * as yup from "yup";
 import InputField from '../../../../components/FormControl/InputField';
 
 const schema = yup.object().shape({
-  title: yup.string().required('Please enter title'),
+  title: yup.string()
+  .required('Please enter title')
+  .min(5, 'Title is too short'),
 });
-function TodoForm(onSubmit) {
+function TodoForm({onSubmit}) {
     const form = useForm({
         defaultValues: {
             title: '',
@@ -16,6 +18,10 @@ function TodoForm(onSubmit) {
     })
     const handleSubmit = (value) => {
         console.log(value);
+        if(onSubmit){
+            onSubmit(value)
+        }
+        form.reset()
     }
     return (
         <form onSubmit={form.handleSubmit(handleSubmit)}>

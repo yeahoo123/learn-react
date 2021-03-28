@@ -73,11 +73,21 @@ function ListPage(props) {
         console.log(history);
     };
     const renderTodoList = useMemo(() => {
-        return todoList.filter((todo) => filterStatus === 'all' || filterStatus === todo.status);
+        return todoList.filter(todo => filterStatus === 'all' || filterStatus === todo.status);
     }, [todoList, filterStatus]);
 
     const handleTodoFormSubmit = (value) => {
-        console.log(value)
+        const newTodo = {
+            id: todoList.length+1,
+            title: value.title,
+            status: "new"
+        };
+        const newTodoList = [
+            ...todoList,
+            newTodo
+        ]
+        console.log(newTodoList)
+        setTodoList(newTodoList)
     }
 
     return (
