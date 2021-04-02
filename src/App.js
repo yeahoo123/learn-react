@@ -5,6 +5,9 @@ import AlbumFeature from './features/Album';
 import NotFound from './components/NotFound';
 import {useEffect} from 'react'
 import productApi from './api/productApi'
+import CounterFeature from './features/Counter';
+import './App.css'
+
 function App() {
     useEffect(()=>{
         const fetchProducts = async ()=>{
@@ -16,6 +19,7 @@ function App() {
         }
         fetchProducts()
     }, [])
+    const color = "goldenrod"
   return (
     <div className="App">
         Header
@@ -23,6 +27,7 @@ function App() {
         <p><NavLink to="/album">album</NavLink></p>
         <Switch>
             <Redirect from="/home" to="/" exact/>
+            <Route path="/" component={CounterFeature} />
             <Route path="/todos" component={TodoFeature}/>
             <Route path="/album" component={AlbumFeature}/>
             <Route component={NotFound}/>
